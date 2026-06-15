@@ -37,7 +37,9 @@ def main():
         metadatas.append({
             "Title": title,
             "Genre": genre,
-            "Director": director
+            "Director": director,
+            "Genre_lower": genre.lower(),
+            "Director_lower": director.lower()
         })
         ids.append(str(uuid.uuid4()))
         
@@ -81,14 +83,14 @@ def main():
         if filter_genre and filter_director:
             where_clause = {
                 "$and": [
-                    {"Genre": {"$eq": filter_genre}},
-                    {"Director": {"$eq": filter_director}}
+                    {"Genre_lower": {"$eq": filter_genre.lower()}},
+                    {"Director_lower": {"$eq": filter_director.lower()}}
                 ]
             }
         elif filter_genre:
-            where_clause = {"Genre": {"$eq": filter_genre}}
+            where_clause = {"Genre_lower": {"$eq": filter_genre.lower()}}
         elif filter_director:
-            where_clause = {"Director": {"$eq": filter_director}}
+            where_clause = {"Director_lower": {"$eq": filter_director.lower()}}
             
         print("\nSearching for recommendations...")
         
